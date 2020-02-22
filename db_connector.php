@@ -1,18 +1,21 @@
 <?php
     class DBConnector {
 
-        private $servername = "localhost";
-        private $username = "xampp";
-        private $password = "ppmax";
+        private $servername = "tharchin";
+        private $port = 3307;
+        private $username = "webdev";
+        private $password = "opfYpOWDu4X4";
+        private $dbname = "test";
         private $connection;
 
-//        function __construct() {
-//        
-//        }
+        function __construct() {
+            $this->connect();
+            $this->createDatabase();
+        }
 
         function connect() {
             try {
-                $this->connection = new PDO("mysql:host=$this->servername;dbname=test", $this->username, $this->password);
+                $this->connection = new PDO("mysql:host=$this->servername;port=$this->port;dbname=$this->dbname", $this->username, $this->password);
                // set the PDO error mode to exception
                $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                   

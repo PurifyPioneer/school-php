@@ -35,6 +35,27 @@
                                     name VARCHAR(64) NOT NULL
                                  ) ");
             $stmt->execute();
+        
+            $stmt = $this->connection->prepare("CREATE TABLE IF NOT EXISTS users(
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(64) NOT NULL,
+                group_id INT
+             ) ");
+            $stmt->execute();
+        }
+
+        function getUser($username) {
+            $stmt = $this->connection->prepare("SELECT name FROM users WHERE name = ?");
+            $stmt->execute(array($username));
+            return $stmt->fetch();
+        }
+
+        function getPassword($username) {
+            $stmt = $this->connection->prepare("SELECT password FROM users WHERE name = ?");
+            $stmt->execute(array($username));
+            error_log( print_r( $stmt->fetchAll(), true ) );
+
+            return $stmt->fetch();
         }
 
         function insertItem($name) {
